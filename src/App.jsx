@@ -26,6 +26,22 @@ export default function App() {
   }
 
   function updateNote(text) {
+    // add new notes at the top
+    setNotes((oldNotes) => {
+      const newArray = []
+      for (let i = 0; i < oldNotes.length; i++) {
+        const oldNote = oldNotes[i]
+        if (oldNote.id === currentNoteId) {
+          newArray.unshift({ ...oldNote, body: text })
+        } else {
+          newArray.push(oldNote)
+        }
+      }
+      return newArray
+    })
+
+    // The old way that didnt arranged notes
+    /*
     setNotes((oldNotes) =>
       oldNotes.map((oldNote) => {
         return oldNote.id === currentNoteId
@@ -33,6 +49,7 @@ export default function App() {
           : oldNote
       })
     )
+    */
   }
 
   function findCurrentNote() {
